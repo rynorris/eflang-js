@@ -1,4 +1,5 @@
-import { Instruction, MusicSource } from "./api";
+import type { MusicSource } from "@eflang/ef.interpreter-api";
+import type { Instruction } from "@eflang/ef.lang";
 
 export class ArraySource implements MusicSource {
     #program: Instruction[];

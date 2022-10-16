@@ -1,13 +1,9 @@
 import * as EF from "@eflang/ef.lang";
+import { IO } from '@eflang/ef.interpreter-api';
+import { ArraySource } from '@eflang/ef.array-source';
+import { SparseTape } from '@eflang/ef.sparse-tape';
 
 import { Interpreter } from './interpreter';
-import { SparseTape } from './sparse-tape';
-import { ArraySource } from './array-source';
-import { IO, } from './api';
-
-function note(note: EF.Note["note"], octave: EF.Note["octave"]): EF.Note {
-  return { note, octave };
-}
 
 function setupTest(program: EF.Instruction[]) {
   const getInput = jest.fn();
@@ -31,11 +27,11 @@ function setupTest(program: EF.Instruction[]) {
 
 it('can increment and send output', async () => {
   const { interpreter, sendOutput } = setupTest([
-      note("C", 4),
-      note("D", 4),
-      note("D", 4),
-      note("D", 4),
-      note("D", 4),
+      EF.note("C", 4),
+      EF.note("D", 4),
+      EF.note("D", 4),
+      EF.note("D", 4),
+      EF.note("D", 4),
       EF.Rest,
     ]);
 
@@ -47,11 +43,11 @@ it('can increment and send output', async () => {
 
 it('can take input', async () => {
   const { interpreter, sendOutput, getInput } = setupTest([
-      note("C", 4),
-      note("B", 4),
+      EF.note("C", 4),
+      EF.note("B", 4),
       EF.Rest,
-      note("A", 4),
-      note("B", 4),
+      EF.note("A", 4),
+      EF.note("B", 4),
       EF.Rest,
     ]);
 
@@ -66,17 +62,17 @@ it('can take input', async () => {
 
 it('can loop', async () => {
   const { interpreter, sendOutput } = setupTest([
-      note("C", 4),
-      note("D", 4),
-      note("D", 4),
-      note("D", 4),
-      note("D", 4),
+      EF.note("C", 4),
+      EF.note("D", 4),
+      EF.note("D", 4),
+      EF.note("D", 4),
+      EF.note("D", 4),
       EF.LoopStart,
-      note("E", 4),
-      note("D", 4),
-      note("D", 4),
-      note("C", 4),
-      note("D", 4),
+      EF.note("E", 4),
+      EF.note("D", 4),
+      EF.note("D", 4),
+      EF.note("C", 4),
+      EF.note("D", 4),
       EF.Rest,
       EF.LoopEnd,
     ]);
@@ -91,14 +87,14 @@ it('can loop', async () => {
 
 it('skips loop when value is 0', async () => {
   const { interpreter, sendOutput } = setupTest([
-      note("C", 4),
-      note("D", 4),
+      EF.note("C", 4),
+      EF.note("D", 4),
       EF.LoopStart,
-      note("E", 4),
-      note("D", 4),
-      note("D", 4),
-      note("C", 4),
-      note("D", 4),
+      EF.note("E", 4),
+      EF.note("D", 4),
+      EF.note("D", 4),
+      EF.note("C", 4),
+      EF.note("D", 4),
       EF.Rest,
       EF.LoopEnd,
     ]);
@@ -110,18 +106,18 @@ it('skips loop when value is 0', async () => {
 
 it('skips nested loops when value is 0', async () => {
   const { interpreter, sendOutput } = setupTest([
-      note("C", 4),
-      note("D", 4),
+      EF.note("C", 4),
+      EF.note("D", 4),
       EF.LoopStart,
-      note("E", 4),
-      note("D", 4),
+      EF.note("E", 4),
+      EF.note("D", 4),
       EF.LoopStart,
-      note("D", 4),
+      EF.note("D", 4),
       EF.LoopStart,
       EF.LoopEnd,
-      note("C", 4),
+      EF.note("C", 4),
       EF.LoopEnd,
-      note("D", 4),
+      EF.note("D", 4),
       EF.Rest,
       EF.LoopEnd,
     ]);

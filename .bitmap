@@ -9,6 +9,18 @@
  */
 
 {
+    "ef/array-source": {
+        "scope": "",
+        "version": "",
+        "mainFile": "index.ts",
+        "rootDir": "eflang/ef/array-source",
+        "config": {
+            "teambit.harmony/node": {},
+            "teambit.envs/envs": {
+                "env": "teambit.harmony/node"
+            }
+        }
+    },
     "ef/interpreter": {
         "scope": "",
         "version": "",
@@ -21,11 +33,35 @@
             }
         }
     },
+    "ef/interpreter-api": {
+        "scope": "",
+        "version": "",
+        "mainFile": "index.ts",
+        "rootDir": "eflang/ef/interpreter-api",
+        "config": {
+            "teambit.harmony/node": {},
+            "teambit.envs/envs": {
+                "env": "teambit.harmony/node"
+            }
+        }
+    },
     "ef/lang": {
         "scope": "",
         "version": "",
         "mainFile": "index.ts",
         "rootDir": "eflang/ef/lang",
+        "config": {
+            "teambit.harmony/node": {},
+            "teambit.envs/envs": {
+                "env": "teambit.harmony/node"
+            }
+        }
+    },
+    "ef/sparse-tape": {
+        "scope": "",
+        "version": "",
+        "mainFile": "index.ts",
+        "rootDir": "eflang/ef/sparse-tape",
         "config": {
             "teambit.harmony/node": {},
             "teambit.envs/envs": {

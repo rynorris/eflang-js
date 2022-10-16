@@ -1,5 +1,5 @@
 import * as EF from "@eflang/ef.lang";
-import { BeatDivision, IO, Metronome, MusicSource, Performer, Tape } from "./api";
+import { BeatDivision, IO, Metronome, MusicSource, Performer, Tape } from "@eflang/ef.interpreter-api";
 
 export class Interpreter{
   #tape: Tape;

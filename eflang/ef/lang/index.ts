@@ -1,2 +1,2 @@
 export * from './lang';
-export { compareNotes } from "./notes";
+export { compareNotes, note } from "./notes";

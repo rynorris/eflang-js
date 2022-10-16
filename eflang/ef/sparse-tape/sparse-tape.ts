@@ -1,4 +1,4 @@
-import { Tape } from "./api";
+import type { Tape } from "@eflang/ef.interpreter-api";
 
 export class SparseTape implements Tape {
     #tape: { [key: number]: number } = {};
