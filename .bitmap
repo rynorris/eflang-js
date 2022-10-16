@@ -21,5 +21,17 @@
             }
         }
     },
+    "ef/lang": {
+        "scope": "",
+        "version": "",
+        "mainFile": "index.ts",
+        "rootDir": "eflang/ef/lang",
+        "config": {
+            "teambit.harmony/node": {},
+            "teambit.envs/envs": {
+                "env": "teambit.harmony/node"
+            }
+        }
+    },
     "$schema-version": "15.0.0"
 }

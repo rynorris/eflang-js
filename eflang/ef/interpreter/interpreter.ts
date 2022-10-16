@@ -1,5 +1,5 @@
-import { BeatDivision, Instruction, IO, LoopEnd, LoopStart, Metronome, MusicSource, Note, Performer, Rest, Tape } from "./api";
-import { compareNotes } from "./notes";
+import * as EF from "@eflang/ef.lang";
+import { BeatDivision, IO, Metronome, MusicSource, Performer, Tape } from "./api";
 
 export class Interpreter{
   #tape: Tape;
@@ -8,7 +8,7 @@ export class Interpreter{
   #music: MusicSource;
   #io: IO;
 
-  #prevNote: Note | null = null;
+  #prevNote: EF.Note | null = null;
   #beatDivision: BeatDivision = 1;
   #loopStack: number[] = [];
   #direction: "up" | "down" = "up";
@@ -41,19 +41,19 @@ export class Interpreter{
     }
   }
 
-  private async execute(instruction: Instruction) {
-    if (instruction === Rest) {
+  private async execute(instruction: EF.Instruction) {
+    if (instruction === EF.Rest) {
       await this.rest();
-    } else if (instruction === LoopStart) {
+    } else if (instruction === EF.LoopStart) {
       this.startLoop();
-    } else if (instruction === LoopEnd) {
+    } else if (instruction === EF.LoopEnd) {
       this.endLoop();
     } else {
       this.note(instruction);
     }
   }
 
-  private play(instruction: Instruction)  {}
+  private play(instruction: EF.Instruction)  {}
 
   private async awaitBeat() {}
 
@@ -85,9 +85,9 @@ export class Interpreter{
       }
   }
 
-  private note(note: Note) {
+  private note(note: EF.Note) {
       if (this.#prevNote != null) {
-        const cmp = compareNotes(note, this.#prevNote);
+        const cmp = EF.compareNotes(note, this.#prevNote);
         if (cmp > 0) {
           this.#tape.right();
           this.#direction = "up";
@@ -109,9 +109,9 @@ export class Interpreter{
   private skipLoop() {
     while (this.#music.hasNext()) {
       const next = this.#music.next();
-      if (next === LoopStart) {
+      if (next === EF.LoopStart) {
         this.skipLoop();
-      } else if (next === LoopEnd) {
+      } else if (next === EF.LoopEnd) {
         return;
       }
     }

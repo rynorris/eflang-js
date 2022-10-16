@@ -1,13 +1,15 @@
+import * as EF from "@eflang/ef.lang";
+
 import { Interpreter } from './interpreter';
 import { SparseTape } from './sparse-tape';
 import { ArraySource } from './array-source';
-import { Instruction, IO, LoopEnd, LoopStart, Note, Rest } from './api';
+import { IO, } from './api';
 
-function note(note: Note["note"], octave: Note["octave"]): Note {
+function note(note: EF.Note["note"], octave: EF.Note["octave"]): EF.Note {
   return { note, octave };
 }
 
-function setupTest(program: Instruction[]) {
+function setupTest(program: EF.Instruction[]) {
   const getInput = jest.fn();
   const sendOutput = jest.fn();
   const io: IO = { sendOutput, getInput };
@@ -34,7 +36,7 @@ it('can increment and send output', async () => {
       note("D", 4),
       note("D", 4),
       note("D", 4),
-      Rest,
+      EF.Rest,
     ]);
 
   await interpreter.perform();
@@ -47,10 +49,10 @@ it('can take input', async () => {
   const { interpreter, sendOutput, getInput } = setupTest([
       note("C", 4),
       note("B", 4),
-      Rest,
+      EF.Rest,
       note("A", 4),
       note("B", 4),
-      Rest,
+      EF.Rest,
     ]);
 
   getInput.mockReturnValueOnce(Promise.resolve(5));
@@ -69,14 +71,14 @@ it('can loop', async () => {
       note("D", 4),
       note("D", 4),
       note("D", 4),
-      LoopStart,
+      EF.LoopStart,
       note("E", 4),
       note("D", 4),
       note("D", 4),
       note("C", 4),
       note("D", 4),
-      Rest,
-      LoopEnd,
+      EF.Rest,
+      EF.LoopEnd,
     ]);
 
   await interpreter.perform();
@@ -91,14 +93,14 @@ it('skips loop when value is 0', async () => {
   const { interpreter, sendOutput } = setupTest([
       note("C", 4),
       note("D", 4),
-      LoopStart,
+      EF.LoopStart,
       note("E", 4),
       note("D", 4),
       note("D", 4),
       note("C", 4),
       note("D", 4),
-      Rest,
-      LoopEnd,
+      EF.Rest,
+      EF.LoopEnd,
     ]);
 
   await interpreter.perform();
@@ -110,18 +112,18 @@ it('skips nested loops when value is 0', async () => {
   const { interpreter, sendOutput } = setupTest([
       note("C", 4),
       note("D", 4),
-      LoopStart,
+      EF.LoopStart,
       note("E", 4),
       note("D", 4),
-      LoopStart,
+      EF.LoopStart,
       note("D", 4),
-      LoopStart,
-      LoopEnd,
+      EF.LoopStart,
+      EF.LoopEnd,
       note("C", 4),
-      LoopEnd,
+      EF.LoopEnd,
       note("D", 4),
-      Rest,
-      LoopEnd,
+      EF.Rest,
+      EF.LoopEnd,
     ]);
 
   await interpreter.perform();

@@ -1,17 +1,4 @@
-
-export type Octave = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-export const NotesInOctave = ["A", "Bb", "B", "C", "C#", "D", "Eb", "E", "F", "F#", "G", "G#"] as const;
-
-export interface Note {
-    octave: Octave;
-    note: (typeof NotesInOctave)[number];
-}
-
-export const Rest = "r";
-export const LoopStart = "(";
-export const LoopEnd = ")";
-
-export type Instruction = Note | typeof Rest | typeof LoopStart | typeof LoopEnd;
+import * as EF from "@eflang/ef.lang";
 
 export type BeatDivision = 1 | 2 | 4 | 8 | 16 | 32;
 export interface BeatId {
@@ -21,7 +8,7 @@ export interface BeatId {
 }
 
 export interface Performer {
-    play(note: Note): void;
+    play(note: EF.Note): void;
     reset(): void;
 }
 
@@ -44,7 +31,7 @@ export interface MusicSource {
     loc(): number;
     seek(loc: number): void;
     hasNext(): boolean;
-    next(): Instruction;
+    next(): EF.Instruction;
     reset(): void;
 }
 
