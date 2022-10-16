@@ -11,6 +11,7 @@ importers:
       '@testing-library/react': ^12.1.5
       '@types/jest': 26.0.20
       '@types/node': 12.20.4
+      '@types/react': 18.0.21
       '@types/sinon': 10.0.13
       '@typescript-eslint/eslint-plugin': 4.29.3
       eslint-import-resolver-node: 0.3.6
@@ -21,9 +22,11 @@ importers:
       eslint-plugin-react: 7.25.1
       react: 17.0.2
       react-dom: 17.0.2
+      tone: 14.7.77
     dependencies:
       '@teambit/eslint-config-bit-react': registry.npmjs.org/@teambit/eslint-config-bit-react/0.0.367_ila2odovlggsd4ks6hgtkp6zma
       '@testing-library/react': registry.npmjs.org/@testing-library/react/12.1.5_sfoxds7t5ydpegc3knd667wn6m
+      '@types/react': registry.npmjs.org/@types/react/18.0.21
       '@types/sinon': registry.npmjs.org/@types/sinon/10.0.13
       '@typescript-eslint/eslint-plugin': registry.npmjs.org/@typescript-eslint/eslint-plugin/4.29.3
       eslint-import-resolver-node: registry.npmjs.org/eslint-import-resolver-node/0.3.6
@@ -34,6 +37,7 @@ importers:
       eslint-plugin-react: registry.npmjs.org/eslint-plugin-react/7.25.1
       react: registry.npmjs.org/react/17.0.2
       react-dom: registry.npmjs.org/react-dom/17.0.2_react@17.0.2
+      tone: registry.npmjs.org/tone/14.7.77
     devDependencies:
       '@babel/runtime': registry.npmjs.org/@babel/runtime/7.12.18
       '@types/jest': registry.npmjs.org/@types/jest/26.0.20
@@ -52,6 +56,12 @@ importers:
     specifiers: {}
 
   eflang/ef/sparse-tape:
+    specifiers: {}
+
+  eflang/web/synth-performer:
+    specifiers: {}
+
+  eflang/web/web-metronome:
     specifiers: {}
 
 packages:
@@ -618,6 +628,16 @@ packages:
       csstype: registry.npmjs.org/csstype/3.1.1
     dev: false
 
+  registry.npmjs.org/@types/react/18.0.21:
+    resolution: {integrity: sha512-7QUCOxvFgnD5Jk8ZKlUAhVcRj7GuJRjnjjiY/IUBWKgOlnvDvTMLD4RTF7NPyVmbRhNrbomZiOepg7M/2Kj1mA==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/@types/react/-/react-18.0.21.tgz}
+    name: '@types/react'
+    version: 18.0.21
+    dependencies:
+      '@types/prop-types': registry.npmjs.org/@types/prop-types/15.7.5
+      '@types/scheduler': registry.npmjs.org/@types/scheduler/0.16.2
+      csstype: registry.npmjs.org/csstype/3.1.1
+    dev: false
+
   registry.npmjs.org/@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/@types/scheduler/-/scheduler-0.16.2.tgz}
     name: '@types/scheduler'
@@ -1120,6 +1140,16 @@ packages:
     resolution: {integrity: sha512-eBvWn1lvIApYMhzQMsu9ciLfkBY499mFZlNqG+/9WR7PVlroQw0vG30cOQQbaKz3sCEc44TAOu2ykzqXSNnwag==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/ast-types-flow/-/ast-types-flow-0.0.7.tgz}
     name: ast-types-flow
     version: 0.0.7
+    dev: false
+
+  registry.npmjs.org/automation-events/4.0.21:
+    resolution: {integrity: sha512-VJdSzclxoBVAqE4UAwmqPLHAM3EI2iYhZ2MADdQnjFlW/GE17B47aQ6y9JE9up2bf8f7I5RfqGhJM464jPMzww==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/automation-events/-/automation-events-4.0.21.tgz}
+    name: automation-events
+    version: 4.0.21
+    engines: {node: '>=12.20.1'}
+    dependencies:
+      '@babel/runtime': registry.npmjs.org/@babel/runtime/7.19.4
+      tslib: registry.npmjs.org/tslib/2.4.0
     dev: false
 
   registry.npmjs.org/axe-core/4.4.3:
@@ -3033,6 +3063,16 @@ packages:
     version: 3.0.12
     dev: false
 
+  registry.npmjs.org/standardized-audio-context/25.3.32:
+    resolution: {integrity: sha512-TtnRZGzHaTowIrEPo7w7WK74TrrY885NpplFpD79h85YuUAUBrUGifHlh8GK11oyZHfwDtCV29yFPfIHWotrXg==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/standardized-audio-context/-/standardized-audio-context-25.3.32.tgz}
+    name: standardized-audio-context
+    version: 25.3.32
+    dependencies:
+      '@babel/runtime': registry.npmjs.org/@babel/runtime/7.19.4
+      automation-events: registry.npmjs.org/automation-events/4.0.21
+      tslib: registry.npmjs.org/tslib/2.4.0
+    dev: false
+
   registry.npmjs.org/state-toggle/1.0.3:
     resolution: {integrity: sha512-d/5Z4/2iiCnHw6Xzghyhb+GcmF89bxwgXG60wjIiZaxnymbyOmI8Hk4VqHXiVVp6u2ysaskFfXg3ekCj4WNftQ==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/state-toggle/-/state-toggle-1.0.3.tgz}
     name: state-toggle
@@ -3139,6 +3179,15 @@ packages:
     engines: {node: '>=8.0'}
     dependencies:
       is-number: registry.npmjs.org/is-number/7.0.0
+    dev: false
+
+  registry.npmjs.org/tone/14.7.77:
+    resolution: {integrity: sha512-tCfK73IkLHyzoKUvGq47gyDyxiKLFvKiVCOobynGgBB9Dl0NkxTM2p+eRJXyCYrjJwy9Y0XCMqD3uOYsYt2Fdg==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/tone/-/tone-14.7.77.tgz}
+    name: tone
+    version: 14.7.77
+    dependencies:
+      standardized-audio-context: registry.npmjs.org/standardized-audio-context/25.3.32
+      tslib: registry.npmjs.org/tslib/2.4.0
     dev: false
 
   registry.npmjs.org/trim-trailing-lines/1.1.4:

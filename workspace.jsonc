@@ -40,6 +40,7 @@
     "policy": {
       "dependencies": {
         "@teambit/eslint-config-bit-react": "~0.0.367",
+        "@types/react": "18.0.21",
         "@types/sinon": "10.0.13",
         "@typescript-eslint/eslint-plugin": "4.29.3",
         "eslint-import-resolver-node": "0.3.6",
@@ -47,7 +48,8 @@
         "eslint-plugin-jest": "24.4.0",
         "eslint-plugin-jsx-a11y": "6.4.1",
         "eslint-plugin-mdx": "1.15.0",
-        "eslint-plugin-react": "7.25.1"
+        "eslint-plugin-react": "7.25.1",
+        "tone": "14.7.77"
       },
       "peerDependencies": {
         "@testing-library/react": "^12.1.5",
