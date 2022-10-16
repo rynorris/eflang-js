@@ -9,11 +9,11 @@
  */
 
 {
-    "eflang/interpreter": {
+    "ef/interpreter": {
         "scope": "",
         "version": "",
         "mainFile": "index.ts",
-        "rootDir": "eflang/eflang/interpreter",
+        "rootDir": "eflang/ef/interpreter",
         "config": {
             "teambit.harmony/node": {},
             "teambit.envs/envs": {
