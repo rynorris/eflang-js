@@ -1,10 +1,10 @@
 ---
 labels: ['module']
-description: 'A general purpose node module'
+description: 'A simple in-memory music source backed by an array.'
 ---
 
 API:
 
 ```ts
-function arraySource(): string;
+const music = new ArraySource([EF.note("C", 4), EF.note("D", 4), EF.Rest]);
 ```
