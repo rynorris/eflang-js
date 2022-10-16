@@ -1,10 +1,12 @@
 ---
 labels: ['module']
-description: 'A general purpose node module'
+description: 'Definition of the plugin components used by the EFLang interpreter.'
 ---
 
 API:
 
 ```ts
-function interpreterApi(): string;
+export class MyCustomMusicSource implements MusicSource {
+    // ...implementation
+}
 ```

@@ -1,10 +1,12 @@
 ---
 labels: ['module']
-description: 'A general purpose node module'
+description: 'Package of types making up the EFLang specification, and utilities for working with them.'
 ---
 
 API:
 
 ```ts
-function lang(): string;
+import * as EF from "@eflang/ef.lang";
+
+const program = [EF.note("C", 4), EF.Rest, EF.LoopStart, EF.LoopEnd];
 ```

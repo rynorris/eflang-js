@@ -13,11 +13,11 @@ export class SparseTape implements Tape {
     }
 
     inc(): void {
-        this.#tape[this.#ptr] = this.getOrZero(this.#ptr) + 1;
+        this.set(this.getOrZero(this.#ptr) + 1);
     }
 
     dec(): void {
-        this.#tape[this.#ptr] = this.getOrZero(this.#ptr) - 1;
+        this.set(this.getOrZero(this.#ptr) - 1);
     }
 
     get(): number {
@@ -25,7 +25,11 @@ export class SparseTape implements Tape {
     }
 
     set(value: number): void {
-        this.#tape[this.#ptr] = value;
+        if (value === 0) {
+            delete this.#tape[this.#ptr];
+        } else {
+            this.#tape[this.#ptr] = value;
+        }
     }
 
     reset(): void {

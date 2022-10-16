@@ -1,10 +1,13 @@
 ---
 labels: ['module']
-description: 'A general purpose node module'
+description: 'An implementation of the EF storage tape that only stores non-zero cells.'
 ---
 
 API:
 
 ```ts
-function sparseTape(): string;
+const tape = new SparseTape();
+tape.right();
+tape.inc();
+const value = tape.get(); // value = 1
 ```
