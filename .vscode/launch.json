@@ -6,6 +6,7 @@
   "configurations": [
     {
       "type": "node",
+      "runtimeVersion": "16.17.1",
       "request": "launch",
       "name": "test",
       "program": "${workspaceFolder}/node_modules/@teambit/bit/dist/app.js",
