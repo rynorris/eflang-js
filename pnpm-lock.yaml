@@ -39,7 +39,19 @@ importers:
       '@types/jest': registry.npmjs.org/@types/jest/26.0.20
       '@types/node': registry.npmjs.org/@types/node/12.20.4
 
-  eflang/eflang/interpreter:
+  eflang/ef/array-source:
+    specifiers: {}
+
+  eflang/ef/interpreter:
+    specifiers: {}
+
+  eflang/ef/interpreter-api:
+    specifiers: {}
+
+  eflang/ef/lang:
+    specifiers: {}
+
+  eflang/ef/sparse-tape:
     specifiers: {}
 
 packages:
