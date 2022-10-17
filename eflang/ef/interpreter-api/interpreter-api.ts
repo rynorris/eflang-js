@@ -13,7 +13,7 @@ export interface Performer {
 }
 
 export interface Metronome {
-    next(beat: BeatId, division: BeatDivision): Promise<BeatId>;
+    next(beat: BeatId | null, division: BeatDivision): Promise<BeatId>;
     reset(): void;
 }
 

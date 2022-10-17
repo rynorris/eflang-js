@@ -4,10 +4,13 @@ import type { Performer } from "@eflang/ef.interpreter-api";
 import { Note } from "@eflang/ef.lang";
 
 export class SynthPerformer implements Performer {
-  #synth = new Tone.Synth().toDestination();
+  #synth: Tone.Synth<Tone.SynthOptions> | undefined;
 
   play(note: Note): void {
-    this.#synth.triggerAttackRelease(convertNote(note), "8n");
+    if (this.#synth == null) {
+      this.#synth = new Tone.Synth().toDestination();
+    }
+    this.#synth.triggerAttackRelease(convertNote(note), "8n", Tone.now());
   }
 
   reset(): void {}

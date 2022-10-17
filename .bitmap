@@ -69,6 +69,18 @@
             }
         }
     },
+    "web/raw-io": {
+        "scope": "",
+        "version": "",
+        "mainFile": "index.ts",
+        "rootDir": "eflang/web/raw-io",
+        "config": {
+            "teambit.harmony/node": {},
+            "teambit.envs/envs": {
+                "env": "teambit.harmony/node"
+            }
+        }
+    },
     "web/synth-performer": {
         "scope": "",
         "version": "",

@@ -7,7 +7,7 @@ export class WebMetronome implements Metronome {
     this.#bpm = bpm;
   }
 
-  next(beat: BeatId, division: BeatDivision): Promise<BeatId> {
+  next(beat: BeatId | null, division: BeatDivision): Promise<BeatId> {
     // TODO: Implement properly.
     const msPerBeat = 60_000 / this.#bpm;
     const msToWait = msPerBeat / division;

@@ -1,1 +1,1 @@
-export { webMetronome } from './web-metronome';
+export { WebMetronome } from './web-metronome';

@@ -1,5 +1,5 @@
 export type Octave = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-export const NotesInOctave = ["A", "Bb", "B", "C", "C#", "D", "Eb", "E", "F", "F#", "G", "G#"] as const;
+export const NotesInOctave = ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "G#", "A", "Bb", "B"] as const;
 
 export interface Note {
     octave: Octave;

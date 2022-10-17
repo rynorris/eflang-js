@@ -35,9 +35,8 @@ export class Interpreter{
   async perform() {
     while (this.#music.hasNext()) {
       const instruction = this.#music.next();
-      this.play(instruction);
+      await this.play(instruction);
       await this.execute(instruction);
-      await this.awaitBeat();
     }
   }
 
@@ -53,9 +52,22 @@ export class Interpreter{
     }
   }
 
-  private play(instruction: EF.Instruction)  {}
+  private async play(instruction: EF.Instruction)  {
+    if (instruction === EF.LoopStart || instruction === EF.LoopEnd) {
+      return;
+    }
 
-  private async awaitBeat() {}
+    if (instruction === EF.Rest) {
+    } else {
+      this.#performer.play(instruction);
+    }
+
+    await this.awaitBeat();
+  }
+
+  private async awaitBeat() {
+    await this.#metronome.next(null, this.#beatDivision);
+  }
 
   private async rest() {
       if (this.#direction === "up") {
@@ -70,6 +82,7 @@ export class Interpreter{
         this.skipLoop();
       } else {
         this.#loopStack.push(this.#music.loc());
+        this.#beatDivision = (this.#beatDivision * 2) as BeatDivision;
       }
   }
 
@@ -82,6 +95,8 @@ export class Interpreter{
       if (this.#tape.get() !== 0) {
         this.#music.seek(loopStart);
         this.#loopStack.push(loopStart);
+      } else {
+        this.#beatDivision = (this.#beatDivision / 2) as BeatDivision;
       }
   }
 
