@@ -12,8 +12,11 @@ importers:
       '@types/jest': 26.0.20
       '@types/node': 12.20.4
       '@types/react': 18.0.21
+      '@types/react-dom': ^17.0.5
       '@types/sinon': 10.0.13
+      '@types/testing-library__jest-dom': 5.9.5
       '@typescript-eslint/eslint-plugin': 4.29.3
+      core-js: ^3.0.0
       eslint-import-resolver-node: 0.3.6
       eslint-plugin-import: 2.22.1
       eslint-plugin-jest: 24.4.0
@@ -21,14 +24,15 @@ importers:
       eslint-plugin-mdx: 1.15.0
       eslint-plugin-react: 7.25.1
       react: 17.0.2
-      react-dom: 17.0.2
+      react-dom: ^16.8.0 || ^17.0.0
+      react-simple-code-editor: 0.13.1
       tone: 14.7.77
     dependencies:
       '@teambit/eslint-config-bit-react': registry.npmjs.org/@teambit/eslint-config-bit-react/0.0.367_ila2odovlggsd4ks6hgtkp6zma
       '@testing-library/react': registry.npmjs.org/@testing-library/react/12.1.5_sfoxds7t5ydpegc3knd667wn6m
-      '@types/react': registry.npmjs.org/@types/react/18.0.21
       '@types/sinon': registry.npmjs.org/@types/sinon/10.0.13
       '@typescript-eslint/eslint-plugin': registry.npmjs.org/@typescript-eslint/eslint-plugin/4.29.3
+      core-js: registry.npmjs.org/core-js/3.25.5
       eslint-import-resolver-node: registry.npmjs.org/eslint-import-resolver-node/0.3.6
       eslint-plugin-import: registry.npmjs.org/eslint-plugin-import/2.22.1
       eslint-plugin-jest: registry.npmjs.org/eslint-plugin-jest/24.4.0_6vw6kfq6in2h3hmc7tpr2jc3cy
@@ -37,11 +41,15 @@ importers:
       eslint-plugin-react: registry.npmjs.org/eslint-plugin-react/7.25.1
       react: registry.npmjs.org/react/17.0.2
       react-dom: registry.npmjs.org/react-dom/17.0.2_react@17.0.2
+      react-simple-code-editor: registry.npmjs.org/react-simple-code-editor/0.13.1_sfoxds7t5ydpegc3knd667wn6m
       tone: registry.npmjs.org/tone/14.7.77
     devDependencies:
       '@babel/runtime': registry.npmjs.org/@babel/runtime/7.12.18
       '@types/jest': registry.npmjs.org/@types/jest/26.0.20
       '@types/node': registry.npmjs.org/@types/node/12.20.4
+      '@types/react': registry.npmjs.org/@types/react/18.0.21
+      '@types/react-dom': registry.npmjs.org/@types/react-dom/17.0.17
+      '@types/testing-library__jest-dom': registry.npmjs.org/@types/testing-library__jest-dom/5.9.5
 
   eflang/ef/array-source:
     specifiers: {}
@@ -56,6 +64,15 @@ importers:
     specifiers: {}
 
   eflang/ef/sparse-tape:
+    specifiers: {}
+
+  eflang/web/code-editor:
+    specifiers:
+      '@types/react': ^17.0.8
+    devDependencies:
+      '@types/react': registry.npmjs.org/@types/react/17.0.50
+
+  eflang/web/raw-io:
     specifiers: {}
 
   eflang/web/synth-performer:
@@ -608,7 +625,6 @@ packages:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.5.tgz}
     name: '@types/prop-types'
     version: 15.7.5
-    dev: false
 
   registry.npmjs.org/@types/react-dom/17.0.17:
     resolution: {integrity: sha512-VjnqEmqGnasQKV0CWLevqMTXBYG9GbwuE6x3VetERLh0cq2LTptFE73MrQi2S7GkKXCf2GgwItB/melLnxfnsg==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/@types/react-dom/-/react-dom-17.0.17.tgz}
@@ -616,7 +632,6 @@ packages:
     version: 17.0.17
     dependencies:
       '@types/react': registry.npmjs.org/@types/react/17.0.50
-    dev: false
 
   registry.npmjs.org/@types/react/17.0.50:
     resolution: {integrity: sha512-ZCBHzpDb5skMnc1zFXAXnL3l1FAdi+xZvwxK+PkglMmBrwjpp9nKaWuEvrGnSifCJmBFGxZOOFuwC6KH/s0NuA==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/@types/react/-/react-17.0.50.tgz}
@@ -626,7 +641,6 @@ packages:
       '@types/prop-types': registry.npmjs.org/@types/prop-types/15.7.5
       '@types/scheduler': registry.npmjs.org/@types/scheduler/0.16.2
       csstype: registry.npmjs.org/csstype/3.1.1
-    dev: false
 
   registry.npmjs.org/@types/react/18.0.21:
     resolution: {integrity: sha512-7QUCOxvFgnD5Jk8ZKlUAhVcRj7GuJRjnjjiY/IUBWKgOlnvDvTMLD4RTF7NPyVmbRhNrbomZiOepg7M/2Kj1mA==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/@types/react/-/react-18.0.21.tgz}
@@ -636,13 +650,12 @@ packages:
       '@types/prop-types': registry.npmjs.org/@types/prop-types/15.7.5
       '@types/scheduler': registry.npmjs.org/@types/scheduler/0.16.2
       csstype: registry.npmjs.org/csstype/3.1.1
-    dev: false
+    dev: true
 
   registry.npmjs.org/@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/@types/scheduler/-/scheduler-0.16.2.tgz}
     name: '@types/scheduler'
     version: 0.16.2
-    dev: false
 
   registry.npmjs.org/@types/sinon/10.0.13:
     resolution: {integrity: sha512-UVjDqJblVNQYvVNUsj0PuYYw0ELRmgt1Nt5Vk0pT5f16ROGfcKJY8o1HVuMOJOpD727RrGB9EGvoaTQE5tgxZQ==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/@types/sinon/-/sinon-10.0.13.tgz}
@@ -657,6 +670,14 @@ packages:
     name: '@types/sinonjs__fake-timers'
     version: 8.1.2
     dev: false
+
+  registry.npmjs.org/@types/testing-library__jest-dom/5.9.5:
+    resolution: {integrity: sha512-ggn3ws+yRbOHog9GxnXiEZ/35Mow6YtPZpd7Z5mKDeZS/o7zx3yAle0ov/wjhVB5QT4N2Dt+GNoGCdqkBGCajQ==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/@types/testing-library__jest-dom/-/testing-library__jest-dom-5.9.5.tgz}
+    name: '@types/testing-library__jest-dom'
+    version: 5.9.5
+    dependencies:
+      '@types/jest': registry.npmjs.org/@types/jest/26.0.20
+    dev: true
 
   registry.npmjs.org/@types/unist/2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/@types/unist/-/unist-2.0.6.tgz}
@@ -1350,7 +1371,6 @@ packages:
     resolution: {integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/csstype/-/csstype-3.1.1.tgz}
     name: csstype
     version: 3.1.1
-    dev: false
 
   registry.npmjs.org/damerau-levenshtein/1.0.8:
     resolution: {integrity: sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/damerau-levenshtein/-/damerau-levenshtein-1.0.8.tgz}
@@ -2806,6 +2826,24 @@ packages:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz}
     name: react-is
     version: 17.0.2
+
+  registry.npmjs.org/react-simple-code-editor/0.13.1_sfoxds7t5ydpegc3knd667wn6m:
+    resolution: {integrity: sha512-XYeVwRZwgyKtjNIYcAEgg2FaQcCZwhbarnkJIV20U2wkCU9q/CPFBo8nRXrK4GXUz3AvbqZFsZRrpUTkqqEYyQ==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/react-simple-code-editor/-/react-simple-code-editor-0.13.1.tgz}
+    id: registry.npmjs.org/react-simple-code-editor/0.13.1
+    name: react-simple-code-editor
+    version: 0.13.1
+    peerDependencies:
+      react: '*'
+      react-dom: '*'
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      react: registry.npmjs.org/react/17.0.2
+      react-dom: registry.npmjs.org/react-dom/17.0.2_react@17.0.2
+    dev: false
 
   registry.npmjs.org/react/17.0.2:
     resolution: {integrity: sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==, registry: https://node.bit.dev/, tarball: https://registry.npmjs.org/react/-/react-17.0.2.tgz}
