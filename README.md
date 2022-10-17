@@ -1,4 +1,10 @@
-# Welcome to your Bit Workspace
+# EFLang JS
+
+A javascript/web implementation of [EFLang](https://github.com/StefanKopieczek/EFlang).
+
+## Quickstart
+
+This project is managed using [Bit](https://bit.dev/docs/getting-started/installing-bit/installing-bit).  Make sure you have Bit installed before continuing.
 
 To get started straight away run `bit start` and open [localhost:3000](http://localhost:3000). It may take a while to build the first time you run this command as it is building the whole User Interface for your development environment.
 
