@@ -1,13 +1,12 @@
 import * as EF from "@eflang/ef.lang";
-import { BeatDivision, IO, Metronome, MusicSource, Performer, Tape } from "@eflang/ef.interpreter-api";
-import { EventName, EventListener, EventBus } from "./events";
+import { BeatDivision, InputManager, Metronome, MusicSource, InterpreterPlugin, Tape } from "@eflang/ef.interpreter-api";
+import { EventBus } from "./event-bus";
 
 export class Interpreter{
   #tape: Tape;
-  #performer: Performer;
   #metronome: Metronome;
   #music: MusicSource;
-  #io: IO;
+  #input: InputManager;
 
   #prevNote: EF.Note | null = null;
   #beatDivision: BeatDivision = 1;
@@ -22,18 +21,16 @@ export class Interpreter{
 
   #events: EventBus = new EventBus();
 
-  constructor(tape: Tape, performer: Performer, metronome: Metronome, music: MusicSource, io: IO) {
+  constructor(tape: Tape, metronome: Metronome, music: MusicSource, input: InputManager) {
     this.#tape = tape;
-    this.#performer = performer;
     this.#metronome = metronome;
     this.#music = music;
-    this.#io = io;
+    this.#input = input;
   }
 
   reset() {
     this.#tape.reset();
     this.#metronome.reset();
-    this.#performer.reset();
     this.#music.reset();
 
     this.#prevNote = null;
@@ -46,6 +43,8 @@ export class Interpreter{
     this.#hasPaused = null;
     this.#hasUnpaused = null;
     this.#hasStopped = null;
+  
+    this.#events.broadcast("reset", {});
   }
 
   async perform() {
@@ -62,9 +61,13 @@ export class Interpreter{
       }
 
       const instruction = this.#music.next();
-      await this.play(instruction);
+
+      this.#events.broadcast("beforeStep", { instruction });
       await this.execute(instruction);
 
+      if (instruction !== EF.LoopStart && instruction !== EF.LoopEnd) {
+        await this.awaitBeat();
+      }
       this.#events.broadcast("afterStep", { instruction });
     }
   }
@@ -97,12 +100,12 @@ export class Interpreter{
     });
   }
 
-  subscribe<E extends EventName>(event: E, listener: EventListener<E>): void {
-    this.#events.subscribe(event, listener);
+  register(plugin: InterpreterPlugin): void {
+    plugin.register(this.#events);
   }
 
-  unsubscribe<E extends EventName>(event: E, listener: EventListener<E>): void {
-    this.#events.unsubscribe(event, listener);
+  unregister(plugin: InterpreterPlugin): void {
+    plugin.unregister(this.#events);
   }
 
   private async execute(instruction: EF.Instruction) {
@@ -117,28 +120,16 @@ export class Interpreter{
     }
   }
 
-  private async play(instruction: EF.Instruction)  {
-    if (instruction === EF.LoopStart || instruction === EF.LoopEnd) {
-      return;
-    }
-
-    if (instruction === EF.Rest) {
-    } else {
-      this.#performer.play(instruction);
-    }
-
-    await this.awaitBeat();
-  }
-
   private async awaitBeat() {
     await this.#metronome.next(null, this.#beatDivision);
   }
 
   private async rest() {
       if (this.#direction === "up") {
-        this.#io.sendOutput(this.#tape.get());
+        this.#events.broadcast("output", { value: this.#tape.get() });
       } else {
-        this.#tape.set(await this.#io.getInput());
+        this.#events.broadcast("waitingForInput", {});
+        this.#tape.set(await this.#input.getInput());
       }
   }
 

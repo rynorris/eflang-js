@@ -2,10 +2,13 @@ import { ArraySource } from "@eflang/ef.array-source";
 import { Instruction, Note } from "@eflang/ef.lang";
 import { SparseTape } from "@eflang/ef.sparse-tape";
 import React from "react";
-import { RawIO } from "@eflang/web.raw-io";
 import { SynthPerformer } from "@eflang/web.synth-performer";
 import { WebMetronome } from "@eflang/web.web-metronome";
 import { Interpreter } from "./interpreter";
+import { PromptInput } from "@eflang/web.prompt-input";
+import { ConsoleOutput } from "@eflang/web.console-output";
+
+const INPUT_OUTPUT_STRING = `c4 a3 r g3 a3 r`;
 
 const FIBONACCI_STRING = `c4 b3 c4 c4 r e4 e4 r c4
 ( g4 ( c5 e4 e4 g4 g4 a4 a4 f4 c4 )
@@ -15,7 +18,7 @@ e4 d4 c4
 ( c4 f4 a4 a4 f4 c4 ) d4 e4 r c4 )
 `;
 
-const FIBONACCI: Instruction[] = FIBONACCI_STRING.split(/\s/).map(str => {
+const parse: (music: string) => Instruction[] = music => music.split(/\s/).map(str => {
     if (str === "r" || str === "(" || str === ")") {
         return str;
     }
@@ -33,15 +36,48 @@ const buttonStyle: React.CSSProperties = {
     minWidth: "80px",
 };
 
-export const SimpleProgram = () => {
+export const InputOutput = () => {
     const interpreter = React.useMemo(() => {
-        return new Interpreter(
+        const interpreter = new Interpreter(
             new SparseTape(),
-            new SynthPerformer(),
             new WebMetronome(100),
-            new ArraySource(FIBONACCI),
-            new RawIO(),
+            new ArraySource(parse(INPUT_OUTPUT_STRING)),
+            new PromptInput(),
         );
+
+        interpreter.register(ConsoleOutput());
+        interpreter.register(SynthPerformer());
+    
+        return interpreter;
+    }, []);
+
+    const startPlaying = React.useCallback(() => {
+        interpreter.perform();
+    }, [interpreter]);
+
+    return (
+        <>
+            <div style={{ whiteSpace: "pre" }}>{INPUT_OUTPUT_STRING}</div>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+                <button style={buttonStyle} onClick={startPlaying}>Play</button>
+            </div>
+        </>
+    );
+};
+
+export const Fibonacci = () => {
+    const interpreter = React.useMemo(() => {
+        const interpreter = new Interpreter(
+            new SparseTape(),
+            new WebMetronome(100),
+            new ArraySource(parse(FIBONACCI_STRING)),
+            new PromptInput(),
+        );
+
+        interpreter.register(ConsoleOutput());
+        interpreter.register(SynthPerformer());
+    
+        return interpreter;
     }, []);
 
     const [state, setState] = React.useState<"idle" | "playing" | "paused">("idle");

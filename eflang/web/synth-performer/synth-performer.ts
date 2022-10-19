@@ -1,19 +1,25 @@
 import * as Tone from "tone";
 
-import type { Performer } from "@eflang/ef.interpreter-api";
-import { Note } from "@eflang/ef.lang";
+import type { InterpreterEvent, InterpreterPlugin } from "@eflang/ef.interpreter-api";
+import { isNote, Note } from "@eflang/ef.lang";
 
-export class SynthPerformer implements Performer {
-  #synth: Tone.Synth<Tone.SynthOptions> | undefined;
+export function SynthPerformer(): InterpreterPlugin {
+  const synth = new Tone.Synth().toDestination();
 
-  play(note: Note): void {
-    if (this.#synth == null) {
-      this.#synth = new Tone.Synth().toDestination();
+  const listener: InterpreterEvent.Listener<"beforeStep"> = ({ instruction }) => {
+    if (isNote(instruction)) {
+      synth.triggerAttackRelease(convertNote(instruction), "8n", Tone.now());
     }
-    this.#synth.triggerAttackRelease(convertNote(note), "8n", Tone.now());
-  }
+  };
 
-  reset(): void {}
+  return {
+    register({ subscribe }) {
+      subscribe("beforeStep", listener);
+    },
+    unregister({ unsubscribe }) {
+      unsubscribe("beforeStep", listener);
+    },
+  };
 }
 
 function convertNote(note: Note): Tone.Unit.Note {

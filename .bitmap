@@ -81,11 +81,35 @@
             }
         }
     },
-    "web/raw-io": {
+    "web/console-output": {
         "scope": "",
         "version": "",
         "mainFile": "index.ts",
-        "rootDir": "eflang/web/raw-io",
+        "rootDir": "eflang/web/console-output",
+        "config": {
+            "teambit.harmony/node": {},
+            "teambit.envs/envs": {
+                "env": "teambit.harmony/node"
+            }
+        }
+    },
+    "web/ef-context": {
+        "scope": "",
+        "version": "",
+        "mainFile": "index.ts",
+        "rootDir": "eflang/web/ef-context",
+        "config": {
+            "teambit.react/react": {},
+            "teambit.envs/envs": {
+                "env": "teambit.react/react"
+            }
+        }
+    },
+    "web/prompt-input": {
+        "scope": "",
+        "version": "",
+        "mainFile": "index.ts",
+        "rootDir": "eflang/web/prompt-input",
         "config": {
             "teambit.harmony/node": {},
             "teambit.envs/envs": {

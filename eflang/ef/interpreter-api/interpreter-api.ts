@@ -7,11 +7,6 @@ export interface BeatId {
     division: number;
 }
 
-export interface Performer {
-    play(note: EF.Note): void;
-    reset(): void;
-}
-
 export interface Metronome {
     next(beat: BeatId | null, division: BeatDivision): Promise<BeatId>;
     reset(): void;
@@ -35,7 +30,30 @@ export interface MusicSource {
     reset(): void;
 }
 
-export interface IO {
+export interface InputManager {
     getInput(): Promise<number>;
-    sendOutput(value: number): void;
+}
+
+export namespace InterpreterEvent {
+    interface EventTypes {
+        beforeStep: { instruction: EF.Instruction },
+        afterStep: { instruction: EF.Instruction },
+        output: { value: number },
+        waitingForInput: {},
+        reset: {},
+    }
+
+    export type Name = keyof EventTypes;
+    export type Payload<E extends Name> = EventTypes[E];
+    export type Listener<E extends Name> = (payload: Payload<E>) => void;
+
+    export interface Bus {
+        subscribe<E extends Name>(event: E, listener: Listener<E>): void;
+        unsubscribe<E extends Name>(event: E, listener: Listener<E>): void;
+    }
+}
+
+export interface InterpreterPlugin {
+    register(bus: InterpreterEvent.Bus): void;
+    unregister(bus: InterpreterEvent.Bus): void;
 }
