@@ -1,5 +1,6 @@
 import * as EF from "@eflang/ef.lang";
 import { BeatDivision, IO, Metronome, MusicSource, Performer, Tape } from "@eflang/ef.interpreter-api";
+import { EventName, EventListener, EventBus } from "./events";
 
 export class Interpreter{
   #tape: Tape;
@@ -12,6 +13,14 @@ export class Interpreter{
   #beatDivision: BeatDivision = 1;
   #loopStack: number[] = [];
   #direction: "up" | "down" = "up";
+
+  #pause: Promise<void> | null = null;
+  #unpause: (() => void) | null = null;
+  #hasPaused: (() => void) | null = null;
+  #hasUnpaused: (() => void) | null = null;
+  #hasStopped: (() => void) | null = null;
+
+  #events: EventBus = new EventBus();
 
   constructor(tape: Tape, performer: Performer, metronome: Metronome, music: MusicSource, io: IO) {
     this.#tape = tape;
@@ -30,14 +39,70 @@ export class Interpreter{
     this.#prevNote = null;
     this.#beatDivision = 1;
     this.#loopStack = [];
+    this.#direction = "up";
+
+    this.#pause = null;
+    this.#unpause = null;
+    this.#hasPaused = null;
+    this.#hasUnpaused = null;
+    this.#hasStopped = null;
   }
 
   async perform() {
     while (this.#music.hasNext()) {
+      if (this.#pause != null) {
+        this.#hasPaused?.();
+        await this.#pause;
+        this.#hasUnpaused?.();
+      }
+
+      if (this.#hasStopped != null) {
+        this.#hasStopped();
+        return;
+      }
+
       const instruction = this.#music.next();
       await this.play(instruction);
       await this.execute(instruction);
+
+      this.#events.broadcast("afterStep", { instruction });
     }
+  }
+
+  async pause(): Promise<void> {
+    this.#pause = new Promise(resolve => {
+      this.#unpause = resolve;
+    });
+
+    return new Promise(resolve => {
+      this.#hasPaused = resolve;
+    });
+  }
+
+  async unpause(): Promise<void> {
+    this.#unpause?.();
+    this.#pause = null;
+    this.#unpause = null;
+
+    return new Promise(resolve => {
+      this.#hasUnpaused = resolve;
+    });
+  }
+
+  async stop(): Promise<void> {
+    this.unpause();
+
+    return new Promise(resolve => {
+      this.#hasStopped = resolve;
+    });
+  }
+
+  subscribe<E extends EventName>(event: E, listener: EventListener<E>): void {
+    this.#events.subscribe(event, listener);
+  }
+
+  unsubscribe<E extends EventName>(event: E, listener: EventListener<E>): void {
+    this.#events.unsubscribe(event, listener);
   }
 
   private async execute(instruction: EF.Instruction) {

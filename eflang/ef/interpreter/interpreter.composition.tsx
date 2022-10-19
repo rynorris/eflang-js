@@ -23,6 +23,16 @@ const FIBONACCI: Instruction[] = FIBONACCI_STRING.split(/\s/).map(str => {
     return { note: str[0]?.toUpperCase() as Note["note"], octave: parseInt(str[1]) as Note["octave"] };
 });
 
+const buttonStyle: React.CSSProperties = {
+    background: "white",
+    borderRadius: "3px",
+    border: "2px solid gray",
+    cursor: "pointer",
+    padding: "5px",
+    margin: "5px",
+    minWidth: "80px",
+};
+
 export const SimpleProgram = () => {
     const interpreter = React.useMemo(() => {
         return new Interpreter(
@@ -34,12 +44,52 @@ export const SimpleProgram = () => {
         );
     }, []);
 
-    const [isPlaying, setIsPlaying] = React.useState(false);
+    const [state, setState] = React.useState<"idle" | "playing" | "paused">("idle");
 
     const startPlaying = React.useCallback(() => {
         interpreter.perform();
-        setIsPlaying(true);
+        setState("playing");
     }, [interpreter]);
 
-    return <><div>{FIBONACCI_STRING}</div><div><button onClick={startPlaying} disabled={isPlaying}>Start</button></div></>;
+    const pause = React.useCallback(() => {
+        (async () => {
+            await interpreter.pause();
+            setState("paused");
+        })();
+    }, [interpreter]);
+
+    const unpause = React.useCallback(() => {
+        (async () => {
+            await interpreter.unpause();
+            setState("playing");
+        })();
+    }, [interpreter]);
+
+    const stop = React.useCallback(() => {
+        (async () => {
+            await interpreter.stop();
+            interpreter.reset();
+            setState("idle");
+        })();
+    }, [interpreter]);
+
+    const playPause = React.useCallback(() => {
+        if (state === "idle") {
+            startPlaying();
+        } else if (state === "playing") {
+            pause();
+        } else if (state === "paused") {
+            unpause();
+        }
+    }, [state, startPlaying, pause, unpause]);
+
+    return (
+        <>
+            <div style={{ whiteSpace: "pre" }}>{FIBONACCI_STRING}</div>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+                <button style={buttonStyle} onClick={playPause}>{state === "playing" ? "Pause" : "Play"}</button>
+                <button style={buttonStyle} onClick={stop} disabled={state === "idle"}>Stop</button>
+            </div>
+        </>
+    );
 };
