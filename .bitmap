@@ -105,6 +105,18 @@
             }
         }
     },
+    "web/hooks/use-interpreter-plugin": {
+        "scope": "",
+        "version": "",
+        "mainFile": "index.ts",
+        "rootDir": "eflang/web/hooks/use-interpreter-plugin",
+        "config": {
+            "teambit.react/react": {},
+            "teambit.envs/envs": {
+                "env": "teambit.react/react"
+            }
+        }
+    },
     "web/prompt-input": {
         "scope": "",
         "version": "",

@@ -51,6 +51,12 @@ export const InputOutput = () => {
         return interpreter;
     }, []);
 
+    React.useEffect(() => {
+        return () => {
+            interpreter.stop().then(() => interpreter.reset());
+        };
+    }, [interpreter]);
+
     const startPlaying = React.useCallback(() => {
         interpreter.perform();
     }, [interpreter]);
@@ -79,6 +85,12 @@ export const Fibonacci = () => {
     
         return interpreter;
     }, []);
+
+    React.useEffect(() => {
+        return () => {
+            interpreter.stop().then(() => interpreter.reset());
+        };
+    }, [interpreter]);
 
     const [state, setState] = React.useState<"idle" | "playing" | "paused">("idle");
 
