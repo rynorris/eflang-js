@@ -105,6 +105,18 @@
             }
         }
     },
+    "web/hooks/use-interpreter-event": {
+        "scope": "",
+        "version": "",
+        "mainFile": "index.ts",
+        "rootDir": "eflang/web/hooks/use-interpreter-event",
+        "config": {
+            "teambit.harmony/node": {},
+            "teambit.envs/envs": {
+                "env": "teambit.harmony/node"
+            }
+        }
+    },
     "web/hooks/use-interpreter-plugin": {
         "scope": "",
         "version": "",
