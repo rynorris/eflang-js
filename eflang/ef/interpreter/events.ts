@@ -5,8 +5,8 @@ interface EventTypes {
 }
 
 export type EventName = keyof EventTypes;
-type EventPayload<E extends EventName> = EventTypes[E];
-type Event<E extends EventName> = { type: E, payload: EventPayload<E> };
+export type EventPayload<E extends EventName> = EventTypes[E];
+export type Event<E extends EventName> = { type: E, payload: EventPayload<E> };
 
 export type EventListener<E extends EventName> = (ev: Event<E>) => void;
 
