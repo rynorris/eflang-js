@@ -69,6 +69,18 @@
             }
         }
     },
+    "web/app": {
+        "scope": "",
+        "version": "",
+        "mainFile": "index.ts",
+        "rootDir": "eflang/web/app",
+        "config": {
+            "teambit.react/react": {},
+            "teambit.envs/envs": {
+                "env": "teambit.react/react"
+            }
+        }
+    },
     "web/code-editor": {
         "scope": "",
         "version": "",
