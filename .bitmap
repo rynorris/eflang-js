@@ -177,6 +177,18 @@
             }
         }
     },
+    "web/terminal": {
+        "scope": "",
+        "version": "",
+        "mainFile": "index.ts",
+        "rootDir": "eflang/web/terminal",
+        "config": {
+            "teambit.react/react": {},
+            "teambit.envs/envs": {
+                "env": "teambit.react/react"
+            }
+        }
+    },
     "web/web-metronome": {
         "scope": "",
         "version": "",

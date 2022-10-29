@@ -5,6 +5,7 @@ import { Instruction, Note } from '@eflang/ef.lang';
 import { ArraySource } from '@eflang/ef.array-source';
 import { Controls } from './components/controls';
 import { Plugins } from './components/plugins';
+import { Terminal } from '@eflang/web.terminal';
 
 const parse: (music: string) => Instruction[] = music => music.split(/\s/).map(str => {
     if (str === "r" || str === "(" || str === ")") {
@@ -27,6 +28,7 @@ export function App() {
       <EfContextProvider music={source}>
         <Plugins />
         <Controls />
+        <Terminal />
       </EfContextProvider>
     </div>
   );
